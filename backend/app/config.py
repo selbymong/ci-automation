@@ -2,7 +2,7 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    DATABASE_URL: str = "postgresql+asyncpg://evaluator:evaluator_dev@localhost:5432/evaluator"
+    DATABASE_URL: str = "postgresql+asyncpg://evaluator:evaluator_dev@localhost:5434/evaluator"
     JWT_SECRET: str = "dev-secret-change-in-production"
     JWT_ALGORITHM: str = "HS256"
     JWT_EXPIRE_MINUTES: int = 480

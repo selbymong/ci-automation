@@ -11,7 +11,9 @@ from app.database import Base, get_db
 from app.main import app
 from app.models import *  # noqa: F401,F403
 
-TEST_DATABASE_URL = settings.DATABASE_URL.replace("/evaluator", "/evaluator_test")
+# Replace only the database name (last path segment) to avoid mangling the username
+_base, _dbname = settings.DATABASE_URL.rsplit("/", 1)
+TEST_DATABASE_URL = f"{_base}/evaluator_test"
 
 engine_test = create_async_engine(TEST_DATABASE_URL, echo=False)
 async_session_test = async_sessionmaker(engine_test, class_=AsyncSession, expire_on_commit=False)
