@@ -23,3 +23,18 @@
 - Note: Docker not available in this WSL environment — PostgreSQL tests require Docker Desktop WSL integration to be enabled
 - Pinned bcrypt==4.0.1 for passlib compatibility
 - **Next session**: Enable Docker Desktop WSL integration, run `bash init.sh`, verify DB migrations. Start Phase 1 with F001 (scaffolding is mostly done — verify and move to F002)
+
+## Session 2 — F001 + F002 (2026-04-08)
+- F001 verified passing — all scaffolding steps complete, health check test passes
+- F002 implemented: full authentication system
+  - Auth schemas (RegisterRequest, LoginRequest, TokenResponse, UserResponse)
+  - Auth router: POST /auth/register, POST /auth/login, GET /auth/me
+  - Registration validates role enum, rejects duplicate emails (409)
+  - Login returns JWT, verifies password, checks is_active
+  - /auth/me returns current user from JWT
+  - Frontend register page with role selector + success redirect
+  - Login page updated with register link
+  - Rewrote test conftest.py: sync DB setup/teardown + per-test transaction rollback
+  - Added pydantic[email] for EmailStr validation
+  - 12 tests passing (1 health + 11 auth including all 3 roles)
+- **Next session**: Start F003 (Charity master record CRUD)

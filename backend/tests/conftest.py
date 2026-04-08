@@ -1,9 +1,9 @@
-import asyncio
 from typing import AsyncGenerator
 
 import pytest
 import pytest_asyncio
 from httpx import ASGITransport, AsyncClient
+from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
 from app.config import settings
@@ -11,64 +11,57 @@ from app.database import Base, get_db
 from app.main import app
 from app.models import *  # noqa: F401,F403
 
-# Replace only the database name (last path segment) to avoid mangling the username
-_base, _dbname = settings.DATABASE_URL.rsplit("/", 1)
+# Replace only the database name (last path segment)
+_base = settings.DATABASE_URL.rsplit("/", 1)[0]
 TEST_DATABASE_URL = f"{_base}/evaluator_test"
 
-engine_test = create_async_engine(TEST_DATABASE_URL, echo=False)
-async_session_test = async_sessionmaker(engine_test, class_=AsyncSession, expire_on_commit=False)
 
+@pytest.fixture(scope="session", autouse=True)
+def _create_test_database():
+    """Synchronously create the test database before the session starts."""
+    import asyncio
 
-@pytest.fixture(scope="session")
-def event_loop():
-    loop = asyncio.new_event_loop()
-    yield loop
-    loop.close()
-
-
-@pytest_asyncio.fixture(scope="session", autouse=True)
-async def setup_test_db():
-    # Create a connection to the default database to create the test database
-    from sqlalchemy.ext.asyncio import create_async_engine as cae
-    default_engine = cae(
-        settings.DATABASE_URL.rsplit("/", 1)[0] + "/evaluator",
-        isolation_level="AUTOCOMMIT",
-    )
-    async with default_engine.connect() as conn:
-        # Drop test DB if exists, then create
-        await conn.execute(
-            __import__("sqlalchemy").text("DROP DATABASE IF EXISTS evaluator_test")
+    async def _setup():
+        admin_engine = create_async_engine(
+            f"{_base}/evaluator", isolation_level="AUTOCOMMIT"
         )
-        await conn.execute(__import__("sqlalchemy").text("CREATE DATABASE evaluator_test"))
-    await default_engine.dispose()
+        async with admin_engine.connect() as conn:
+            await conn.execute(text("DROP DATABASE IF EXISTS evaluator_test"))
+            await conn.execute(text("CREATE DATABASE evaluator_test"))
+        await admin_engine.dispose()
 
-    # Create tables
-    async with engine_test.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+        engine = create_async_engine(TEST_DATABASE_URL)
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
+        await engine.dispose()
 
+    async def _teardown():
+        admin_engine = create_async_engine(
+            f"{_base}/evaluator", isolation_level="AUTOCOMMIT"
+        )
+        async with admin_engine.connect() as conn:
+            await conn.execute(text("DROP DATABASE IF EXISTS evaluator_test"))
+        await admin_engine.dispose()
+
+    asyncio.run(_setup())
     yield
-
-    # Cleanup
-    async with engine_test.begin() as conn:
-        await conn.run_sync(Base.metadata.drop_all)
-    await engine_test.dispose()
-
-    cleanup_engine = cae(
-        settings.DATABASE_URL.rsplit("/", 1)[0] + "/evaluator",
-        isolation_level="AUTOCOMMIT",
-    )
-    async with cleanup_engine.connect() as conn:
-        await conn.execute(
-            __import__("sqlalchemy").text("DROP DATABASE IF EXISTS evaluator_test")
-        )
-    await cleanup_engine.dispose()
+    asyncio.run(_teardown())
 
 
 @pytest_asyncio.fixture
 async def db_session() -> AsyncGenerator[AsyncSession, None]:
-    async with async_session_test() as session:
-        yield session
-        await session.rollback()
+    """Per-test session using a nested transaction for rollback isolation."""
+    engine = create_async_engine(TEST_DATABASE_URL, echo=False)
+    conn = await engine.connect()
+    txn = await conn.begin()
+    session = AsyncSession(bind=conn, expire_on_commit=False)
+
+    yield session
+
+    await session.close()
+    await txn.rollback()
+    await conn.close()
+    await engine.dispose()
 
 
 @pytest_asyncio.fixture

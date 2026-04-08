@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { api } from "@/lib/api";
 
 export default function LoginPage() {
@@ -71,6 +72,12 @@ export default function LoginPage() {
         >
           Sign in
         </button>
+        <p className="text-center text-sm text-gray-600">
+          Don&apos;t have an account?{" "}
+          <Link href="/register" className="text-blue-600 hover:underline">
+            Register
+          </Link>
+        </p>
       </form>
     </div>
   );
