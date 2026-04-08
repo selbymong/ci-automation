@@ -40,7 +40,7 @@
       "Create charity list and detail UI pages",
       "Import existing Name Reference data (1,001 records)"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F004",

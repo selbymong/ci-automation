@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers import auth
+from app.routers import auth, charity
 
 app = FastAPI(title="Evaluator API")
 
@@ -15,6 +15,7 @@ app.add_middleware(
 
 
 app.include_router(auth.router)
+app.include_router(charity.router)
 
 
 @app.get("/health")

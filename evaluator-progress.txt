@@ -38,3 +38,16 @@
   - Added pydantic[email] for EmailStr validation
   - 12 tests passing (1 health + 11 auth including all 3 roles)
 - **Next session**: Start F003 (Charity master record CRUD)
+
+## Session 3 — F003 (2026-04-08)
+- F003 implemented: Charity master record CRUD
+  - Charity model with CRA number as unique natural key, soft deletes
+  - Full CRUD API: POST/GET/PUT/DELETE /charities/
+  - Search by name or CRA number (ilike), filter by sector
+  - Pagination with skip/limit and total count
+  - Service layer pattern (router -> service -> model)
+  - Alembic migration 002 for charity table with indexes
+  - Import script for Name Reference sheet (scripts/import/import_name_reference.py)
+  - 13 charity tests covering CRUD, search, filter, pagination, soft delete, auth
+  - 24 total tests passing
+- **Next session**: Start F004 (Sector and classification taxonomy management)
