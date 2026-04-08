@@ -1,0 +1,476 @@
+[
+  {
+    "id": "F001",
+    "phase": 1,
+    "domain": "core",
+    "description": "Project scaffolding: FastAPI + Next.js + PostgreSQL with Docker Compose",
+    "steps": [
+      "Initialize FastAPI project structure",
+      "Initialize Next.js app with TypeScript and Tailwind",
+      "Configure PostgreSQL with Docker Compose",
+      "Set up Alembic for migrations",
+      "Create health check endpoints",
+      "Verify full stack starts and connects"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F002",
+    "phase": 1,
+    "domain": "core",
+    "description": "Authentication system with email/password and role-based access (Analyst, Reviewer, Admin)",
+    "steps": [
+      "Create user table with role enum",
+      "Implement registration and login endpoints with JWT",
+      "Add role-based middleware",
+      "Build login/register UI pages",
+      "Test all three roles can authenticate"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F003",
+    "phase": 1,
+    "domain": "core",
+    "description": "Charity master record CRUD with CRA registration number as natural key",
+    "steps": [
+      "Create charity table with all CI fields (formal name, common name, CRA number, sector, fiscal year end, website, etc.)",
+      "Build REST API with full CRUD",
+      "Implement search/filter by name, sector, CRA number",
+      "Create charity list and detail UI pages",
+      "Import existing Name Reference data (1,001 records)"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F004",
+    "phase": 1,
+    "domain": "core",
+    "description": "Sector and classification taxonomy management",
+    "steps": [
+      "Create sector, sub-sector, and sector_group tables",
+      "Build admin UI for managing taxonomy",
+      "Implement sector assignment on charity records",
+      "Import existing sector mappings from JD Charities List"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F005",
+    "phase": 1,
+    "domain": "core",
+    "description": "Contact management for charity liaisons",
+    "steps": [
+      "Create contact table linked to charities",
+      "Store name, email, phone, role, notes",
+      "Build contact UI within charity detail page",
+      "Import existing contact data from Summer 2025 email column"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F010",
+    "phase": 2,
+    "domain": "pipeline",
+    "description": "Evaluation cycle management (create, configure, close seasonal batches)",
+    "steps": [
+      "Create evaluation_cycle table with name, start/end dates, target count",
+      "Build admin UI for creating and managing cycles",
+      "Implement cycle status transitions (planning, active, review, closed)",
+      "Add cycle dashboard with summary statistics"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F011",
+    "phase": 2,
+    "domain": "pipeline",
+    "description": "Priority scoring engine combining web traffic, staleness, and donor demand",
+    "steps": [
+      "Create priority_score table with component scores",
+      "Implement scoring algorithm: views weight + staleness weight + demand weight + Top 100 bonus",
+      "Build priority calculation batch job",
+      "Create priority queue UI sorted by composite score",
+      "Verify against existing Priority Sheet rankings"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F012",
+    "phase": 2,
+    "domain": "pipeline",
+    "description": "Analyst assignment with workload balancing",
+    "steps": [
+      "Create evaluation_assignment table linking analyst, charity, cycle",
+      "Build assignment UI with drag-and-drop or bulk assign",
+      "Implement workload balancing view showing assignments per analyst",
+      "Support reassignment with audit trail"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F013",
+    "phase": 2,
+    "domain": "pipeline",
+    "description": "12-stage evaluation workflow state machine",
+    "steps": [
+      "Define stages enum: prioritized, assigned, financials_acquisition, federal_corp_check, cra_data_pull, financial_analysis, srss_scoring, impact_scoring, review, charity_outreach, charity_response, published",
+      "Create evaluation_stage_log table for audit trail",
+      "Implement state transition validation rules",
+      "Build Kanban board UI showing charities across stages",
+      "Add stage transition timestamps and duration tracking"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F014",
+    "phase": 2,
+    "domain": "pipeline",
+    "description": "Financial acquisition tracker with RFI escalation chain",
+    "steps": [
+      "Create financial_acquisition table tracking: AFS online check, RFI sent date, 2nd RFI date, phone follow-up date, CRA request date, received date",
+      "Build acquisition status UI within evaluation detail",
+      "Implement escalation timer alerts (e.g., 14 days no response -> prompt 2nd RFI)",
+      "Generate RFI email templates via Resend integration",
+      "Track financial statement URLs per charity"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F015",
+    "phase": 2,
+    "domain": "pipeline",
+    "description": "CRA data request batch management",
+    "steps": [
+      "Create cra_data_request table with charity, years requested, dates",
+      "Build batch request generation UI",
+      "Track request status (pending, received, not_available)",
+      "Import from existing CRA Request sheets"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F016",
+    "phase": 2,
+    "domain": "pipeline",
+    "description": "Institutional memory: evaluation notes with versioning across cycles",
+    "steps": [
+      "Create evaluation_note table with cycle_id, charity_id, note_type, content, author, timestamp",
+      "Build notes timeline UI showing all notes across cycles",
+      "Support note types: general, financial, followup, difficulty",
+      "Import existing 2022-2025 Notes columns from Summer sheets",
+      "Full-text search across all notes"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F020",
+    "phase": 3,
+    "domain": "financial",
+    "description": "Financial data entry form matching CI's analysis structure",
+    "steps": [
+      "Create financial_analysis table with all CI fields (donations, gov funding, revenue, program costs, admin costs, funding costs, reserves, etc.)",
+      "Build structured data entry form with field validation",
+      "Auto-calculate derived metrics (admin %, funding %, overhead %, PCC)",
+      "Support multi-year entry (3-year comparison)",
+      "Display financial summary card"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F021",
+    "phase": 3,
+    "domain": "financial",
+    "description": "Financial transparency scoring (1-3 scale with display flag configuration)",
+    "steps": [
+      "Create transparency_config table with 30+ REPORT_Show* boolean flags",
+      "Build toggle UI for configuring which metrics to display per charity",
+      "Auto-derive transparency score from flag configuration",
+      "Store transparency level on charity record"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F022",
+    "phase": 3,
+    "domain": "financial",
+    "description": "Financial notes and adjustments editor (Ci adjustments tracking)",
+    "steps": [
+      "Create financial_adjustment table recording each Ci adjustment",
+      "Build rich text editor for Financial Notes and Financial Review sections",
+      "Track adjustment types: deferred contributions, amortization, consolidation, reclassification",
+      "Display adjustments in structured format on charity profile"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F023",
+    "phase": 3,
+    "domain": "financial",
+    "description": "Star rating and impact rating calculation",
+    "steps": [
+      "Implement star rating algorithm (1-5 stars based on financial metrics)",
+      "Implement impact rating as X,Y coordinate system",
+      "Build rating display component",
+      "Store ratings with version history",
+      "Validate against existing JD Charities List ratings"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F030",
+    "phase": 4,
+    "domain": "srss",
+    "description": "SRSS 26-question scoring framework with category rollups",
+    "steps": [
+      "Create srss_framework table with 26 questions mapped to 6 categories",
+      "Build scoring form UI with guidance text per question",
+      "Auto-calculate category scores: Strategy %, Activities %, Outputs %, Outcomes %, Quality %, Learning %",
+      "Derive letter grade (A+, A, B+, B, C, D, F) from total score",
+      "Store SRSS scores with year dimension"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F031",
+    "phase": 4,
+    "domain": "srss",
+    "description": "SRSS historical time series and trend visualization",
+    "steps": [
+      "Create srss_historical table storing scores by year (2013-present)",
+      "Build trend chart showing SRSS score over time per charity",
+      "Import existing SRSS year columns from Summer 2025 sheet",
+      "Display year-over-year change indicators (up/down arrows)"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F032",
+    "phase": 4,
+    "domain": "srss",
+    "description": "Results and Impact narrative editor",
+    "steps": [
+      "Build rich text editor for ResultsAndImpact content",
+      "Support HTML content storage (matching existing CI format)",
+      "Preview rendering matching charityintelligence.ca profile style",
+      "Version history for narrative content"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F040",
+    "phase": 5,
+    "domain": "review",
+    "description": "Two-stage authorization workflow (Analyst -> Reviewer -> Authorized)",
+    "steps": [
+      "Implement BJ authorization step (financial review approval)",
+      "Implement GT authorization step (final sign-off)",
+      "Build review queue UI showing pending authorizations",
+      "Add comment/annotation support on specific sections",
+      "Track authorization timestamps and reviewer identity"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F041",
+    "phase": 5,
+    "domain": "review",
+    "description": "Profile builder assembling all sections into publishable charity profile",
+    "steps": [
+      "Create profile_content table with section types: mission, financial_review, financial_notes, charity_adds, results_impact",
+      "Build profile preview UI matching charityintelligence.ca layout",
+      "Auto-populate financial data sections from financial_analysis",
+      "Support diff view between current and previous published version",
+      "Generate profile URL slug"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F042",
+    "phase": 5,
+    "domain": "review",
+    "description": "Charity outreach tracking (send profile, track response)",
+    "steps": [
+      "Build email send UI with template selection",
+      "Integrate Resend for profile delivery to charity contacts",
+      "Track: sent date, email saved, read receipt, response received, call scheduled",
+      "Store charity response content (AndTheCharityAdds)",
+      "Import existing outreach status from Summer sheets"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F050",
+    "phase": 6,
+    "domain": "demand",
+    "description": "Public charity request form with fuzzy matching",
+    "steps": [
+      "Build public-facing form: name, email, requested charity name",
+      "Implement fuzzy matching against existing charity database",
+      "Store request with matched/unmatched status",
+      "Send confirmation email to requester"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F051",
+    "phase": 6,
+    "domain": "demand",
+    "description": "Demand aggregation dashboard with vote counts and triage",
+    "steps": [
+      "Aggregate requests into vote counts per charity",
+      "Build triage UI with disposition options: Done, To Do, Not a Charity, Too Small, Not in Canada",
+      "Link aggregated demand to priority scoring engine",
+      "Display demand signal on charity detail page"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F052",
+    "phase": 6,
+    "domain": "demand",
+    "description": "Import historical request data (13,294 requests from 2011-present)",
+    "steps": [
+      "Parse and clean Request Listing sheet data",
+      "Fuzzy match requested charity names to existing records",
+      "Import Donor Requests aggregated votes",
+      "Import Charity Requests and Incoming Requests",
+      "Reconcile duplicate charities across request sources"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F060",
+    "phase": 7,
+    "domain": "analytics",
+    "description": "Analyst throughput dashboard (replaces Stats 2025 sheet)",
+    "steps": [
+      "Track per-analyst metrics across all workflow stages",
+      "Build dashboard with analyst comparison charts",
+      "Show cycle-over-cycle productivity trends",
+      "Display bottleneck identification (which stages have longest dwell time)"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F061",
+    "phase": 7,
+    "domain": "analytics",
+    "description": "Cycle progress dashboard with completion tracking",
+    "steps": [
+      "Show overall cycle progress: charities completed vs target",
+      "Display stage distribution histogram",
+      "Track average time per stage",
+      "Generate end-of-cycle summary report"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F062",
+    "phase": 7,
+    "domain": "analytics",
+    "description": "Web traffic integration for priority scoring",
+    "steps": [
+      "Build GA4 data import pipeline (views, active users, engagement time per charity page)",
+      "Map page titles to charity records via CID/slug",
+      "Store traffic snapshots for priority scoring",
+      "Display traffic trends on charity detail page"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F070",
+    "phase": 8,
+    "domain": "integration",
+    "description": "Harness API client for CRA T3010 data retrieval",
+    "steps": [
+      "Define Harness API contract for T3010 data access",
+      "Build API client with authentication",
+      "Implement data pull for financial fields matching cur_financial schema",
+      "Auto-populate financial analysis form from T3010 data",
+      "Handle API errors gracefully with manual fallback"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F071",
+    "phase": 8,
+    "domain": "integration",
+    "description": "Harness API client for scraped charity website data",
+    "steps": [
+      "Define API contract for scraped data (annual reports, financial statements URLs)",
+      "Build API client for charity website monitoring",
+      "Surface newly-detected financial statements in acquisition tracker",
+      "Flag charities where new AFS detected but not yet processed"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F072",
+    "phase": 8,
+    "domain": "integration",
+    "description": "Data export API for Harness platform consumption",
+    "steps": [
+      "Build REST API exposing published charity evaluations",
+      "Include all profile sections, ratings, financial data, SRSS scores",
+      "Support incremental sync via updated_at filtering",
+      "Document API contract for Harness data pipeline ingestion",
+      "Implement API key authentication"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F080",
+    "phase": 9,
+    "domain": "migration",
+    "description": "Import Name Reference master data (1,001 charity records with 175 fields)",
+    "steps": [
+      "Map all 175 columns to new schema tables",
+      "Handle data type conversions and null handling",
+      "Import charity identity, financial, rating, and content fields",
+      "Validate import against source counts",
+      "Generate import reconciliation report"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F081",
+    "phase": 9,
+    "domain": "migration",
+    "description": "Import JD Charities List (240 evaluated charities with detailed metrics)",
+    "steps": [
+      "Map 94 columns to financial_analysis, srss, and rating tables",
+      "Import sector classifications and groupings",
+      "Import Q1-Q26 SRSS question responses",
+      "Validate star ratings and impact scores match"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F082",
+    "phase": 9,
+    "domain": "migration",
+    "description": "Import Summer 2025 work-in-progress state",
+    "steps": [
+      "Map evaluation pipeline status to 12-stage state machine",
+      "Import analyst assignments and priority scores",
+      "Import all notes columns as evaluation_notes",
+      "Import outreach status (profile sent, response, etc.)",
+      "Reconstruct financial acquisition status from column data"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F083",
+    "phase": 9,
+    "domain": "migration",
+    "description": "Import Summer 2024 and Priority Reference historical data",
+    "steps": [
+      "Import prior cycle data for trend analysis",
+      "Map Summer 2024 charities to canonical records",
+      "Import historical SRSS scores from year columns",
+      "Import Priority Reference priority calculations"
+    ],
+    "passes": false
+  }
+]
