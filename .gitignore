@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+*.egg
+
+# Environment
+.env
+backend/.env
+
+# Node
+node_modules/
+.next/
+frontend/.next/
+frontend/node_modules/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data files
+scripts/data/*.xlsx
+
+# Docker
+pgdata/

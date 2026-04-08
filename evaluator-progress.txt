@@ -7,3 +7,19 @@
 - Created .claude/commands/ slash commands
 - Created INITIALIZER_PROMPT.md for first agent session
 - **Next session**: Run Initializer Agent with INITIALIZER_PROMPT.md to scaffold the project
+
+## Session 1 — Initializer Agent (2026-04-08)
+- Scaffolded FastAPI backend with auth (JWT + bcrypt), models (User), config, database
+- Scaffolded Next.js 14 frontend with TypeScript, Tailwind, App Router
+- Created docker-compose.yml with PostgreSQL 16 (health check, volume persistence)
+- Set up Alembic with async SQLAlchemy and initial User migration
+- Created shared API contract definitions (harness_cra, harness_scrape, evaluator_export)
+- Created mock Harness client with realistic test data
+- Created test fixtures (conftest.py) and health check test
+- Created .env.example and .gitignore
+- Backend starts and /health returns {"status":"healthy","service":"evaluator"}
+- Frontend TypeScript compiles clean
+- Auth module verified: password hashing and JWT creation/verification work
+- Note: Docker not available in this WSL environment — PostgreSQL tests require Docker Desktop WSL integration to be enabled
+- Pinned bcrypt==4.0.1 for passlib compatibility
+- **Next session**: Enable Docker Desktop WSL integration, run `bash init.sh`, verify DB migrations. Start Phase 1 with F001 (scaffolding is mostly done — verify and move to F002)
