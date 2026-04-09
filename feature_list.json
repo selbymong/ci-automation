@@ -120,7 +120,7 @@
       "Build Kanban board UI showing charities across stages",
       "Add stage transition timestamps and duration tracking"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F014",
