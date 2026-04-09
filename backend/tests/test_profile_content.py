@@ -129,6 +129,43 @@ async def test_html_content_stored(client):
 
 
 @pytest.mark.asyncio
+async def test_assembled_profile(client):
+    token, charity_id = await _setup(client)
+    headers = _auth(token)
+    # Create sections
+    await client.post("/profile-content/", json={
+        "charity_id": charity_id,
+        "section_type": "mission",
+        "content": "Mission statement v1",
+    }, headers=headers)
+    mission_v1 = await client.post("/profile-content/", json={
+        "charity_id": charity_id,
+        "section_type": "results_impact",
+        "content": "Results v1",
+    }, headers=headers)
+    # Update mission to v2
+    first_mission = (await client.get(
+        f"/profile-content/charity/{charity_id}", headers=headers
+    )).json()
+    mission_id = [c for c in first_mission if c["section_type"] == "mission"][0]["id"]
+    await client.put(f"/profile-content/{mission_id}", json={
+        "content": "Mission statement v2",
+    }, headers=headers)
+
+    resp = await client.get(
+        f"/profile-content/charity/{charity_id}/assembled", headers=headers
+    )
+    assert resp.status_code == 200
+    data = resp.json()
+    assert data["charity_id"] == charity_id
+    # Should have latest version of each section
+    assert "mission" in data["sections"]
+    assert "results_impact" in data["sections"]
+    assert data["sections"]["mission"]["version"] == 2
+    assert data["sections"]["mission"]["content"] == "Mission statement v2"
+
+
+@pytest.mark.asyncio
 async def test_unauthenticated_rejected(client):
     resp = await client.post("/profile-content/", json={
         "charity_id": "x", "section_type": "mission", "content": "nope",

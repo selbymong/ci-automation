@@ -9,6 +9,7 @@ from app.database import get_db
 from app.models.profile_content import ContentSectionType, ProfileContent
 from app.models.user import User
 from app.schemas.profile_content import (
+    AssembledProfile,
     ProfileContentCreate,
     ProfileContentResponse,
     ProfileContentUpdate,
@@ -74,6 +75,26 @@ async def update_content(
     await db.commit()
     await db.refresh(new_version)
     return new_version
+
+
+@router.get("/charity/{charity_id}/assembled", response_model=AssembledProfile)
+async def assembled_profile(
+    charity_id: str,
+    db: Annotated[AsyncSession, Depends(get_db)],
+    _: Annotated[User, Depends(get_current_user)],
+) -> AssembledProfile:
+    """Assemble the latest version of each section into a complete profile."""
+    result = await db.execute(
+        select(ProfileContent)
+        .where(ProfileContent.charity_id == charity_id)
+        .order_by(ProfileContent.section_type, ProfileContent.version.desc())
+    )
+    all_content = list(result.scalars().all())
+    sections: dict[str, ProfileContentResponse] = {}
+    for content in all_content:
+        if content.section_type not in sections:
+            sections[content.section_type] = ProfileContentResponse.model_validate(content)
+    return AssembledProfile(charity_id=charity_id, sections=sections)
 
 
 @router.get("/{content_id}", response_model=ProfileContentResponse)

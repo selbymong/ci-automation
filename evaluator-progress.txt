@@ -146,4 +146,22 @@
 - Migration 012 adds srss_score, srss_historical, profile_content tables
 - 169 total tests passing
 - Phase 4 complete (F030-F032)
-- **Next session**: Start Phase 5 with F040 (Two-stage authorization workflow)
+## Session 5 continued — Phase 5: F040-F042 (2026-04-09)
+- F040: Two-stage authorization workflow
+  - EvaluationAuthorization model with financial_review + final_signoff steps
+  - Pending/approved/rejected status with reviewer identity + comment + timestamp
+  - Reviewer/admin role enforcement (analysts cannot decide)
+  - Duplicate pending prevention per evaluation+step
+  - Pending queue endpoint filtered by step
+  - 10 tests covering CRUD, role enforcement, idempotency, auth
+- F041: Profile builder with section assembly
+  - Added assembled profile endpoint aggregating latest version of each section
+  - 1 new test for assembled profile (total 9 profile content tests)
+- F042: Charity outreach tracking
+  - CharityOutreach model with send tracking (sent_at, email, saved) + response tracking (received, call_scheduled)
+  - charity_adds_content field for storing charity's response text
+  - 7 tests covering CRUD, send profile, record response, auth
+- Migration 013 adds evaluation_authorization and charity_outreach tables
+- 187 total tests passing
+- Phase 5 complete (F040-F042)
+- **Next session**: Start Phase 6 with F050 (Public charity request form)

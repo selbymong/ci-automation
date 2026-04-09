@@ -269,7 +269,7 @@
       "Add comment/annotation support on specific sections",
       "Track authorization timestamps and reviewer identity"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F041",
@@ -283,7 +283,7 @@
       "Support diff view between current and previous published version",
       "Generate profile URL slug"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F042",
@@ -297,7 +297,7 @@
       "Store charity response content (AndTheCharityAdds)",
       "Import existing outreach status from Summer sheets"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F050",
