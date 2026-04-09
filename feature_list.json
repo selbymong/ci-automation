@@ -93,7 +93,7 @@
       "Create priority queue UI sorted by composite score",
       "Verify against existing Priority Sheet rankings"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F012",

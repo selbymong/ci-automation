@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers import auth, charity, contact, cycle, sector
+from app.routers import auth, charity, contact, cycle, priority, sector
 
 app = FastAPI(title="Evaluator API")
 
@@ -19,6 +19,7 @@ app.include_router(charity.router)
 app.include_router(sector.router)
 app.include_router(contact.router)
 app.include_router(cycle.router)
+app.include_router(priority.router)
 
 
 @app.get("/health")
