@@ -62,3 +62,14 @@
   - 9 sector tests covering CRUD, role auth, relationships, charity assignment
   - 33 total tests passing
 - **Next session**: Start F005 (Contact management for charity liaisons)
+
+## Session 3 continued — F005 (2026-04-08)
+- F005 implemented: Contact management for charity liaisons
+  - Contact model linked to charity via FK
+  - Full CRUD: create, get, update, delete contacts + list by charity
+  - Auth required on all endpoints
+  - Migration 004 with charity_id index
+  - 7 contact tests covering CRUD, validation, auth
+  - 40 total tests passing
+- Phase 1 complete (F001-F005)
+- **Next session**: Start Phase 2 with F010 (Evaluation cycle management)
