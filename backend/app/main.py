@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers import auth, charity, contact, cycle, priority, sector
+from app.routers import assignment, auth, charity, contact, cycle, priority, sector
 
 app = FastAPI(title="Evaluator API")
 
@@ -14,6 +14,7 @@ app.add_middleware(
 )
 
 
+app.include_router(assignment.router)
 app.include_router(auth.router)
 app.include_router(charity.router)
 app.include_router(sector.router)

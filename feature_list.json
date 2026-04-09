@@ -106,7 +106,7 @@
       "Implement workload balancing view showing assignments per analyst",
       "Support reassignment with audit trail"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F013",
