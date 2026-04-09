@@ -51,3 +51,14 @@
   - 13 charity tests covering CRUD, search, filter, pagination, soft delete, auth
   - 24 total tests passing
 - **Next session**: Start F004 (Sector and classification taxonomy management)
+
+## Session 3 continued — F004 (2026-04-08)
+- F004 implemented: Sector and classification taxonomy management
+  - SectorGroup, Sector, SubSector models with relationships
+  - Admin-only endpoints for creating groups/sectors/sub-sectors (role enforcement)
+  - List endpoints for all users
+  - Sector assignment endpoint on charity records
+  - Migration 003 for all three tables
+  - 9 sector tests covering CRUD, role auth, relationships, charity assignment
+  - 33 total tests passing
+- **Next session**: Start F005 (Contact management for charity liaisons)

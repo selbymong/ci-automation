@@ -53,7 +53,7 @@
       "Implement sector assignment on charity records",
       "Import existing sector mappings from JD Charities List"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F005",
