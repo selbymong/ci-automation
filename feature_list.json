@@ -310,7 +310,7 @@
       "Store request with matched/unmatched status",
       "Send confirmation email to requester"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F051",
@@ -323,7 +323,7 @@
       "Link aggregated demand to priority scoring engine",
       "Display demand signal on charity detail page"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F052",
@@ -337,7 +337,7 @@
       "Import Charity Requests and Incoming Requests",
       "Reconcile duplicate charities across request sources"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F060",

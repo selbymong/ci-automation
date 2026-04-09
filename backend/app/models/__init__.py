@@ -4,6 +4,7 @@ from app.models.charity import Charity
 from app.models.contact import Contact
 from app.models.cra_request import CRADataRequest
 from app.models.cycle import EvaluationCycle
+from app.models.demand import CharityRequest, DemandAggregate
 from app.models.evaluation import Evaluation, EvaluationStageLog
 from app.models.financial_acquisition import FinancialAcquisition
 from app.models.financial_adjustment import FinancialAdjustment
@@ -19,7 +20,8 @@ from app.models.transparency import TransparencyConfig
 from app.models.user import User
 
 __all__ = [
-    "Charity", "CharityOutreach", "CharityRating", "Contact", "CRADataRequest",
+    "Charity", "CharityOutreach", "CharityRating", "CharityRequest", "Contact",
+    "CRADataRequest", "DemandAggregate",
     "Evaluation", "EvaluationAssignment", "EvaluationAuthorization", "EvaluationCycle",
     "EvaluationNote", "EvaluationStageLog", "FinancialAcquisition", "FinancialAdjustment",
     "FinancialAnalysis", "PriorityScore", "ProfileContent", "Sector", "SectorGroup",

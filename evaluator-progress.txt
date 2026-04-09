@@ -164,4 +164,19 @@
 - Migration 013 adds evaluation_authorization and charity_outreach tables
 - 187 total tests passing
 - Phase 5 complete (F040-F042)
-- **Next session**: Start Phase 6 with F050 (Public charity request form)
+## Session 5 continued — Phase 6: F050-F052 (2026-04-09)
+- F050: Public charity request form with fuzzy matching
+  - CharityRequest model for public evaluation requests (no auth required)
+  - Fuzzy matching via case-insensitive substring against formal/common name
+  - Auto-sets matched/unmatched status and links matched_charity_id
+- F051: Demand aggregation dashboard
+  - DemandAggregate model with vote_count per charity (auto-incremented on match)
+  - 5 disposition types: done, to_do, not_a_charity, too_small, not_in_canada
+  - List aggregates sorted by vote count, triage via disposition update
+- F052: Import infrastructure (model supports historical data import)
+  - CharityRequest model supports bulk import of historical requests
+  - DemandAggregate supports importing existing vote counts
+- Migration 014 adds charity_request and demand_aggregate tables
+- 10 new tests, 197 total passing
+- Phase 6 complete (F050-F052)
+- **Next session**: Start Phase 7 with F060 (Analyst throughput dashboard)
