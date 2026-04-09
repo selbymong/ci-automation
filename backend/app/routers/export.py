@@ -108,7 +108,7 @@ async def _build_evaluation(charity: Charity, eval: Evaluation, db: AsyncSession
         impact_rating_y=rating.impact_y if rating else None,
         srss_grade=srss.letter_grade if srss else None,
         srss_score_pct=srss.total_pct if srss else None,
-        transparency_level=transparency.score if transparency else None,
+        transparency_level=transparency.transparency_score if transparency else None,
         results_and_impact=results_impact,
         financial_notes=financial_notes,
         published_at=eval.updated_at,

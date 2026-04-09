@@ -218,3 +218,36 @@
 - 221 total tests passing
 - Phase 8 complete (F070-F072)
 - **Next session**: Start Phase 9 with F080 (Import Name Reference master data)
+
+## Session 6 continued — Phase 9: F080-F083 (2026-04-08)
+- F080: Import Name Reference master data
+  - Rewrote import_name_reference.py with full 175-column mapping
+  - Maps charity identity, financial data, ratings, transparency flags, and content sections
+  - Handles date parsing (safe_date), type conversions, null handling
+  - Deduplication: skips existing CRA numbers
+  - import_from_records() for testing without Excel
+  - 5 tests: charities, financials with derived metrics, ratings, content sections, deduplication
+- F081: Import JD Charities List
+  - import_jd_charities.py maps 94 columns to financial_analysis, srss_score, charity_rating, sector
+  - Imports Q1-Q26 SRSS question responses with category percentages
+  - Derives letter grade from total percentage if not provided
+  - Creates sector/sector_group records on import
+  - 3 tests: SRSS scores, sector creation, ratings
+- F082: Import Summer 2025 work-in-progress state
+  - import_summer_2025.py with STATUS_STAGE_MAP mapping Excel status text to 12-stage enum
+  - Imports evaluations, analyst assignments, notes (general, financial, followup, difficulty)
+  - Imports outreach status, financial acquisition status, priority scores
+  - Analyst name -> user ID lookup with caching
+  - 4 tests: evaluations with correct stage, notes with author, priorities, skip-missing-charity
+- F083: Import Summer 2024 and Priority Reference historical data
+  - import_historical.py with three sub-functions: import_summer_2024, import_srss_historical, import_priority_reference
+  - Summer 2024: creates closed cycle, links charities, creates published evaluations
+  - SRSS historical: imports year columns (SRSS 2013 through SRSS 2024) with grade derivation and dedup
+  - Priority Reference: imports composite scores, component scores, ranks
+  - 5 tests: SRSS historical, SRSS dedup, Summer 2024 cycle, priority reference, combined import
+- Fixed export router: transparency_score field name, SRSS total_pct field name
+- Fixed fiscal_year_end date parsing (string -> datetime.date conversion via safe_date)
+- Import functions use flush() (not commit) to allow test transaction rollback
+- 238 total tests passing
+- Phase 9 complete (F080-F083)
+- **ALL 37 FEATURES COMPLETE** — All 9 phases passing

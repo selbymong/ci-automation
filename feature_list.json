@@ -431,7 +431,7 @@
       "Validate import against source counts",
       "Generate import reconciliation report"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F081",
@@ -444,7 +444,7 @@
       "Import Q1-Q26 SRSS question responses",
       "Validate star ratings and impact scores match"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F082",
@@ -458,7 +458,7 @@
       "Import outreach status (profile sent, response, etc.)",
       "Reconstruct financial acquisition status from column data"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F083",
@@ -471,6 +471,6 @@
       "Import historical SRSS scores from year columns",
       "Import Priority Reference priority calculations"
     ],
-    "passes": false
+    "passes": true
   }
 ]
