@@ -175,7 +175,7 @@
       "Support multi-year entry (3-year comparison)",
       "Display financial summary card"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F021",
@@ -188,7 +188,7 @@
       "Auto-derive transparency score from flag configuration",
       "Store transparency level on charity record"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F022",
@@ -201,7 +201,7 @@
       "Track adjustment types: deferred contributions, amortization, consolidation, reclassification",
       "Display adjustments in structured format on charity profile"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F023",
@@ -215,7 +215,7 @@
       "Store ratings with version history",
       "Validate against existing JD Charities List ratings"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F030",
