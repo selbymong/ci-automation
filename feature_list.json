@@ -350,7 +350,7 @@
       "Show cycle-over-cycle productivity trends",
       "Display bottleneck identification (which stages have longest dwell time)"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F061",
@@ -363,7 +363,7 @@
       "Track average time per stage",
       "Generate end-of-cycle summary report"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F062",
@@ -376,7 +376,7 @@
       "Store traffic snapshots for priority scoring",
       "Display traffic trends on charity detail page"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F070",

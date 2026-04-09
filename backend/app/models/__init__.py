@@ -16,6 +16,7 @@ from app.models.profile_content import ProfileContent
 from app.models.rating import CharityRating
 from app.models.sector import Sector, SectorGroup, SubSector
 from app.models.srss import SRSSHistorical, SRSSScore
+from app.models.traffic import TrafficSnapshot
 from app.models.transparency import TransparencyConfig
 from app.models.user import User
 
@@ -25,5 +26,6 @@ __all__ = [
     "Evaluation", "EvaluationAssignment", "EvaluationAuthorization", "EvaluationCycle",
     "EvaluationNote", "EvaluationStageLog", "FinancialAcquisition", "FinancialAdjustment",
     "FinancialAnalysis", "PriorityScore", "ProfileContent", "Sector", "SectorGroup",
-    "SRSSHistorical", "SRSSScore", "SubSector", "TransparencyConfig", "User",
+    "SRSSHistorical", "SRSSScore", "SubSector", "TrafficSnapshot",
+    "TransparencyConfig", "User",
 ]
