@@ -199,3 +199,22 @@
 - 9 new tests, 206 total passing
 - Phase 7 complete (F060-F062)
 - **Next session**: Start Phase 8 with F070 (Harness API client)
+
+## Session 6 — Phase 8: F070-F072 (2026-04-08)
+- F070: Harness API client for CRA T3010 data retrieval
+  - Router exposing T3010 data via /harness/t3010/{charity_id} and /harness/t3010/bn/{bn}
+  - Looks up charity CRA number, calls HarnessClient (or MockHarnessClient in dev)
+  - 4 tests covering charity lookup, direct BN lookup, auth enforcement, not found
+- F071: Harness API client for scraped charity website data
+  - /harness/scrape/{charity_id} and /harness/scrape/bn/{bn} endpoints
+  - /harness/organization/{charity_id} for organization record lookup
+  - 4 tests covering charity lookup, direct BN lookup, auth enforcement
+- F072: Data export API for Harness platform consumption
+  - /api/v1/evaluations/published — all published evaluations with ratings, SRSS, transparency, profile content
+  - /api/v1/evaluations/updated-since — incremental sync with timestamp filter
+  - /api/v1/demand/signals — aggregated donor demand data
+  - API key authentication via X-API-Key header (EXPORT_API_KEY config)
+  - 7 tests covering published list, API key enforcement, wrong key rejection, incremental sync, future date, demand signals
+- 221 total tests passing
+- Phase 8 complete (F070-F072)
+- **Next session**: Start Phase 9 with F080 (Import Name Reference master data)

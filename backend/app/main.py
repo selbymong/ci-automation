@@ -3,9 +3,9 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.routers import (
     analytics, assignment, auth, authorization, charity, contact, cra_request, cycle,
-    demand, evaluation, financial_acquisition, financial_adjustment, financial_analysis,
-    note, outreach, priority, profile_content, rating, sector, srss, traffic,
-    transparency,
+    demand, evaluation, export, financial_acquisition, financial_adjustment,
+    financial_analysis, harness, note, outreach, priority, profile_content, rating,
+    sector, srss, traffic, transparency,
 )
 
 app = FastAPI(title="Evaluator API")
@@ -30,9 +30,11 @@ app.include_router(cra_request.router)
 app.include_router(cycle.router)
 app.include_router(demand.router)
 app.include_router(evaluation.router)
+app.include_router(export.router)
 app.include_router(financial_acquisition.router)
 app.include_router(financial_adjustment.router)
 app.include_router(financial_analysis.router)
+app.include_router(harness.router)
 app.include_router(note.router)
 app.include_router(outreach.router)
 app.include_router(priority.router)

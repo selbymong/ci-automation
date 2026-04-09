@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     HARNESS_API_URL: str = "https://api.harnessexchange.com"
     HARNESS_API_KEY: str = ""
     HARNESS_API_MOCK: bool = True
+    EXPORT_API_KEY: str = "evaluator-export-key-dev"
     RESEND_API_KEY: str = ""
 
     model_config = {"env_file": ".env", "env_file_encoding": "utf-8"}

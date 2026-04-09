@@ -390,7 +390,7 @@
       "Auto-populate financial analysis form from T3010 data",
       "Handle API errors gracefully with manual fallback"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F071",
@@ -403,7 +403,7 @@
       "Surface newly-detected financial statements in acquisition tracker",
       "Flag charities where new AFS detected but not yet processed"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F072",
@@ -417,7 +417,7 @@
       "Document API contract for Harness data pipeline ingestion",
       "Implement API key authentication"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F080",
