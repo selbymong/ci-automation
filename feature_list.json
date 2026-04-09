@@ -229,7 +229,7 @@
       "Derive letter grade (A+, A, B+, B, C, D, F) from total score",
       "Store SRSS scores with year dimension"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F031",
@@ -242,7 +242,7 @@
       "Import existing SRSS year columns from Summer 2025 sheet",
       "Display year-over-year change indicators (up/down arrows)"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F032",
@@ -255,7 +255,7 @@
       "Preview rendering matching charityintelligence.ca profile style",
       "Version history for narrative content"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F040",

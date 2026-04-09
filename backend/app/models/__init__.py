@@ -9,8 +9,10 @@ from app.models.financial_adjustment import FinancialAdjustment
 from app.models.financial_analysis import FinancialAnalysis
 from app.models.note import EvaluationNote
 from app.models.priority import PriorityScore
+from app.models.profile_content import ProfileContent
 from app.models.rating import CharityRating
 from app.models.sector import Sector, SectorGroup, SubSector
+from app.models.srss import SRSSHistorical, SRSSScore
 from app.models.transparency import TransparencyConfig
 from app.models.user import User
 
@@ -18,5 +20,6 @@ __all__ = [
     "Charity", "CharityRating", "Contact", "CRADataRequest", "Evaluation",
     "EvaluationAssignment", "EvaluationCycle", "EvaluationNote", "EvaluationStageLog",
     "FinancialAcquisition", "FinancialAdjustment", "FinancialAnalysis", "PriorityScore",
-    "Sector", "SectorGroup", "SubSector", "TransparencyConfig", "User",
+    "ProfileContent", "Sector", "SectorGroup", "SRSSHistorical", "SRSSScore",
+    "SubSector", "TransparencyConfig", "User",
 ]
