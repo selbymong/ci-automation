@@ -79,7 +79,7 @@
       "Implement cycle status transitions (planning, active, review, closed)",
       "Add cycle dashboard with summary statistics"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F011",
