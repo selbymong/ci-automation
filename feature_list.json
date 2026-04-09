@@ -134,7 +134,7 @@
       "Generate RFI email templates via Resend integration",
       "Track financial statement URLs per charity"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F015",
@@ -147,7 +147,7 @@
       "Track request status (pending, received, not_available)",
       "Import from existing CRA Request sheets"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F016",
@@ -161,7 +161,7 @@
       "Import existing 2022-2025 Notes columns from Summer sheets",
       "Full-text search across all notes"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F020",

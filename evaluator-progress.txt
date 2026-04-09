@@ -80,3 +80,26 @@
 - F013: 12-stage evaluation workflow state machine with stage log, kanban board endpoint (9 tests)
 - 81 total tests passing
 - **Next session**: Continue Phase 2 with F014-F016
+
+## Session 5 — Phase 2: F014-F016 (2026-04-09)
+- F014: Financial acquisition tracker with RFI escalation chain
+  - FinancialAcquisition model with 8-status enum (not_started through not_available)
+  - Escalation timer logic: 14-day thresholds trigger "Send 2nd RFI", "Phone follow-up needed", "Submit CRA request"
+  - Duplicate prevention (unique charity+cycle)
+  - Endpoints: create, get, update, list by cycle
+  - 8 tests covering CRUD, duplicate rejection, escalation flag, auth
+- F015: CRA data request batch management
+  - CRADataRequest model with pending/received/not_available status
+  - Single and batch creation endpoints
+  - List with filter by status and batch_id
+  - 8 tests covering CRUD, batch, filters, auth
+- F016: Evaluation notes with versioning
+  - EvaluationNote model with 4 note types (general, financial, followup, difficulty)
+  - Author-only edit enforcement
+  - Full-text search via ilike with min_length validation
+  - List by charity with type filter
+  - 11 tests covering CRUD, type validation, search, author enforcement, auth
+- Migration 009 adds all three tables
+- 108 total tests passing
+- Phase 2 complete (F010-F016)
+- **Next session**: Start Phase 3 with F020 (Financial data entry form)

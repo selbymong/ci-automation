@@ -1,7 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers import assignment, auth, charity, contact, cycle, evaluation, priority, sector
+from app.routers import (
+    assignment, auth, charity, contact, cra_request, cycle,
+    evaluation, financial_acquisition, note, priority, sector,
+)
 
 app = FastAPI(title="Evaluator API")
 
@@ -19,8 +22,11 @@ app.include_router(auth.router)
 app.include_router(charity.router)
 app.include_router(sector.router)
 app.include_router(contact.router)
+app.include_router(cra_request.router)
 app.include_router(cycle.router)
 app.include_router(evaluation.router)
+app.include_router(financial_acquisition.router)
+app.include_router(note.router)
 app.include_router(priority.router)
 
 
